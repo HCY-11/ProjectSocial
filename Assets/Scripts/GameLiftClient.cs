@@ -139,27 +139,21 @@ public class GameLiftClient
 
    private void CreateGameLiftClient()
    {
-      Debug.Log("CreateGameLiftClient");
+        Debug.Log("CreateGameLiftClient");
 
-      CognitoAWSCredentials credentials = new CognitoAWSCredentials(
-            CognitoIdentityPool,
-            RegionEndpoint.USEast2
-      );
+        CognitoAWSCredentials credentials = new CognitoAWSCredentials(
+                CognitoIdentityPool,
+                RegionEndpoint.USEast2
+        );
 
-      if (IsArgFlagPresent(IsProdArg))
-      {
         _amazonGameLiftClient = new AmazonGameLiftClient(credentials, RegionEndpoint.USEast2);
-      }
-      else
-      {
-         // local testing
-         // guide: https://docs.aws.amazon.com/gamelift/latest/developerguide/integration-testing-local.html
-         AmazonGameLiftConfig amazonGameLiftConfig = new AmazonGameLiftConfig()
-         {
-            ServiceURL = "http://localhost:9080"
-         };
-         _amazonGameLiftClient = new AmazonGameLiftClient("asdfasdf", "asdf", amazonGameLiftConfig);
-      }
+        // // local testing
+        // // guide: https://docs.aws.amazon.com/gamelift/latest/developerguide/integration-testing-local.html
+        // AmazonGameLiftConfig amazonGameLiftConfig = new AmazonGameLiftConfig()
+        // {
+        //     ServiceURL = "http://localhost:9080"
+        // };
+        // _amazonGameLiftClient = new AmazonGameLiftClient("asdfasdf", "asdf", amazonGameLiftConfig);
    }
 
    public GameLiftClient()
