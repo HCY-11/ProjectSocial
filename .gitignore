@@ -1,0 +1,19 @@
+# Blacklist all
+*
+
+# Whitelist
+!*/
+!.gitignore
+!*.csproj
+!*.sln
+
+!./README.md
+
+# Blacklist unnecessary directories
+Packages/
+UserSettings/
+Library/
+Logs/
+obj/
+Temp/
+ProjectSettings/
