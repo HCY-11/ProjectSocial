@@ -146,20 +146,20 @@ public class GameLiftClient
             RegionEndpoint.USEast2
       );
 
-    //   if (IsArgFlagPresent(IsProdArg))
-    //   {
+      if (IsArgFlagPresent(IsProdArg))
+      {
         _amazonGameLiftClient = new AmazonGameLiftClient(credentials, RegionEndpoint.USEast2);
-    //   }
-    //   else
-    //   {
-    //      // local testing
-    //      // guide: https://docs.aws.amazon.com/gamelift/latest/developerguide/integration-testing-local.html
-    //      AmazonGameLiftConfig amazonGameLiftConfig = new AmazonGameLiftConfig()
-    //      {
-    //         ServiceURL = "http://localhost:9080"
-    //      };
-    //      _amazonGameLiftClient = new AmazonGameLiftClient("asdfasdf", "asdf", amazonGameLiftConfig);
-    //   }
+      }
+      else
+      {
+         // local testing
+         // guide: https://docs.aws.amazon.com/gamelift/latest/developerguide/integration-testing-local.html
+         AmazonGameLiftConfig amazonGameLiftConfig = new AmazonGameLiftConfig()
+         {
+            ServiceURL = "http://localhost:9080"
+         };
+         _amazonGameLiftClient = new AmazonGameLiftClient("asdfasdf", "asdf", amazonGameLiftConfig);
+      }
    }
 
    public GameLiftClient()
