@@ -13,8 +13,8 @@ public class GameLiftClient
     private AmazonGameLiftClient _amazonGameLiftClient;
     private NetworkClient _NetworkClient;
     private string _playerUuid;
-    private string CognitoIdentityPool = "us-east-2:5681959f-9606-47f1-ab53-a5131f11f222";
-    private string FleetId = "fleet-e1a83446-d2ef-4354-b93c-1098cb9689fe"; // TODO: probably don't hardcode this, use alias or something
+    private string _cognitoIdentityPool = "us-east-2:5681959f-9606-47f1-ab53-a5131f11f222";
+    private string _fleetId = "fleet-e1a83446-d2ef-4354-b93c-1098cb9689fe"; // TODO: probably don't hardcode this, use alias or something
 
     async private void CreatePlayerSession(GameSession gameSession)
     {
@@ -57,7 +57,7 @@ public class GameLiftClient
     {
         Debug.Log("CreateGameSessionAsync");
         var createGameSessionRequest = new Amazon.GameLift.Model.CreateGameSessionRequest();
-        createGameSessionRequest.FleetId = FleetId; // can also use AliasId
+        createGameSessionRequest.FleetId = _fleetId; // can also use AliasId
         createGameSessionRequest.CreatorId = _playerUuid;
         createGameSessionRequest.MaximumPlayerSessionCount = 2; // search for two player game
 
@@ -76,7 +76,7 @@ public class GameLiftClient
     {
         Debug.Log("SearchGameSessions");
         var searchGameSessionsRequest = new SearchGameSessionsRequest();
-        searchGameSessionsRequest.FleetId = FleetId; // can also use AliasId
+        searchGameSessionsRequest.FleetId = _fleetId; // can also use AliasId
         searchGameSessionsRequest.FilterExpression = "hasAvailablePlayerSessions=true"; // only ones we can join
         searchGameSessionsRequest.SortExpression = "creationTimeMillis ASC"; // return oldest first
         searchGameSessionsRequest.Limit = 1; // only one session even if there are other valid ones
@@ -105,7 +105,7 @@ public class GameLiftClient
 
         CreateGameLiftClient();
 
-        // Mock game session queries aren't implemented for local GameLift server testing, so just return null to create new one
+        // Always search for an available game session; create a new one if none are available
         GameSession gameSession = await SearchGameSessionsAsync();
 
         if (gameSession == null)
@@ -142,7 +142,7 @@ public class GameLiftClient
         Debug.Log("CreateGameLiftClient");
 
         CognitoAWSCredentials credentials = new CognitoAWSCredentials(
-                CognitoIdentityPool,
+                _cognitoIdentityPool,
                 RegionEndpoint.USEast2
         );
 
