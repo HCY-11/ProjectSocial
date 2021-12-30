@@ -1,6 +1,9 @@
-# ProjectSocial
+# Project Social
 
-# Installation
+## About
+Project Social is an in-progress virtual meeting space for college students.
+
+## Installation
 
 Click on the "code" button and then hit "download zip"
 
